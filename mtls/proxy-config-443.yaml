@@ -1,0 +1,123 @@
+- address:
+    socketAddress:
+      address: 10.96.0.1
+      portValue: 443
+  bindToPort: false
+  continueOnListenerFiltersTimeout: true
+  filterChains:
+  - filters:
+    - name: istio.stats
+      typedConfig:
+        '@type': type.googleapis.com/stats.PluginConfig
+    - name: envoy.filters.network.tcp_proxy
+      typedConfig:
+        '@type': type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy
+        accessLog:
+        - name: envoy.access_loggers.file
+          typedConfig:
+            '@type': type.googleapis.com/envoy.extensions.access_loggers.file.v3.FileAccessLog
+            logFormat:
+              textFormatSource:
+                inlineString: |
+                  [%START_TIME%] "%REQ(:METHOD)% %REQ(X-ENVOY-ORIGINAL-PATH?:PATH)% %PROTOCOL%" %RESPONSE_CODE% %RESPONSE_FLAGS% %RESPONSE_CODE_DETAILS% %CONNECTION_TERMINATION_DETAILS% "%UPSTREAM_TRANSPORT_FAILURE_REASON%" %BYTES_RECEIVED% %BYTES_SENT% %DURATION% %RESP(X-ENVOY-UPSTREAM-SERVICE-TIME)% "%REQ(X-FORWARDED-FOR)%" "%REQ(USER-AGENT)%" "%REQ(X-REQUEST-ID)%" "%REQ(:AUTHORITY)%" "%UPSTREAM_HOST%" %UPSTREAM_CLUSTER_RAW% %UPSTREAM_LOCAL_ADDRESS% %DOWNSTREAM_LOCAL_ADDRESS% %DOWNSTREAM_REMOTE_ADDRESS% %REQUESTED_SERVER_NAME% %ROUTE_NAME%
+            path: /dev/stdout
+        cluster: outbound|443||kubernetes.default.svc.cluster.local
+        statPrefix: outbound|443||kubernetes.default.svc.cluster.local
+    transportSocketConnectTimeout: 15s
+  listenerFiltersTimeout: 0s
+  name: 10.96.0.1_443
+  trafficDirection: OUTBOUND
+- address:
+    socketAddress:
+      address: 0.0.0.0
+      portValue: 443
+  bindToPort: false
+  continueOnListenerFiltersTimeout: true
+  defaultFilterChain:
+    filterChainMatch: {}
+    filters:
+    - name: istio.stats
+      typedConfig:
+        '@type': type.googleapis.com/stats.PluginConfig
+    - name: envoy.filters.network.tcp_proxy
+      typedConfig:
+        '@type': type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy
+        accessLog:
+        - name: envoy.access_loggers.file
+          typedConfig:
+            '@type': type.googleapis.com/envoy.extensions.access_loggers.file.v3.FileAccessLog
+            logFormat:
+              textFormatSource:
+                inlineString: |
+                  [%START_TIME%] "%REQ(:METHOD)% %REQ(X-ENVOY-ORIGINAL-PATH?:PATH)% %PROTOCOL%" %RESPONSE_CODE% %RESPONSE_FLAGS% %RESPONSE_CODE_DETAILS% %CONNECTION_TERMINATION_DETAILS% "%UPSTREAM_TRANSPORT_FAILURE_REASON%" %BYTES_RECEIVED% %BYTES_SENT% %DURATION% %RESP(X-ENVOY-UPSTREAM-SERVICE-TIME)% "%REQ(X-FORWARDED-FOR)%" "%REQ(USER-AGENT)%" "%REQ(X-REQUEST-ID)%" "%REQ(:AUTHORITY)%" "%UPSTREAM_HOST%" %UPSTREAM_CLUSTER_RAW% %UPSTREAM_LOCAL_ADDRESS% %DOWNSTREAM_LOCAL_ADDRESS% %DOWNSTREAM_REMOTE_ADDRESS% %REQUESTED_SERVER_NAME% %ROUTE_NAME%
+            path: /dev/stdout
+        cluster: PassthroughCluster
+        statPrefix: PassthroughCluster
+    name: PassthroughFilterChain
+  filterChains:
+  - filterChainMatch:
+      serverNames:
+      - www.google.com
+    filters:
+    - name: istio.stats
+      typedConfig:
+        '@type': type.googleapis.com/stats.PluginConfig
+    - name: envoy.filters.network.tcp_proxy
+      typedConfig:
+        '@type': type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy
+        accessLog:
+        - name: envoy.access_loggers.file
+          typedConfig:
+            '@type': type.googleapis.com/envoy.extensions.access_loggers.file.v3.FileAccessLog
+            logFormat:
+              textFormatSource:
+                inlineString: |
+                  [%START_TIME%] "%REQ(:METHOD)% %REQ(X-ENVOY-ORIGINAL-PATH?:PATH)% %PROTOCOL%" %RESPONSE_CODE% %RESPONSE_FLAGS% %RESPONSE_CODE_DETAILS% %CONNECTION_TERMINATION_DETAILS% "%UPSTREAM_TRANSPORT_FAILURE_REASON%" %BYTES_RECEIVED% %BYTES_SENT% %DURATION% %RESP(X-ENVOY-UPSTREAM-SERVICE-TIME)% "%REQ(X-FORWARDED-FOR)%" "%REQ(USER-AGENT)%" "%REQ(X-REQUEST-ID)%" "%REQ(:AUTHORITY)%" "%UPSTREAM_HOST%" %UPSTREAM_CLUSTER_RAW% %UPSTREAM_LOCAL_ADDRESS% %DOWNSTREAM_LOCAL_ADDRESS% %DOWNSTREAM_REMOTE_ADDRESS% %REQUESTED_SERVER_NAME% %ROUTE_NAME%
+            path: /dev/stdout
+        cluster: outbound|8080||cba.proxy.prismaaccess.com
+        statPrefix: outbound|8080||cba.proxy.prismaaccess.com
+        tunnelingConfig:
+          hostname: www.google.com:443
+    metadata:
+      filterMetadata:
+        istio:
+          config: /apis/networking.istio.io/v1/namespaces/default/virtual-service/route-outbound-traffic-to-google-via-external-forward-proxy
+    transportSocketConnectTimeout: 15s
+  listenerFilters:
+  - name: envoy.filters.listener.tls_inspector
+    typedConfig:
+      '@type': type.googleapis.com/envoy.extensions.filters.listener.tls_inspector.v3.TlsInspector
+      initialReadBufferSize: 512
+  listenerFiltersTimeout: 0s
+  name: 0.0.0.0_443
+  trafficDirection: OUTBOUND
+- address:
+    socketAddress:
+      address: 10.108.148.187
+      portValue: 443
+  bindToPort: false
+  continueOnListenerFiltersTimeout: true
+  filterChains:
+  - filters:
+    - name: istio.stats
+      typedConfig:
+        '@type': type.googleapis.com/stats.PluginConfig
+    - name: envoy.filters.network.tcp_proxy
+      typedConfig:
+        '@type': type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy
+        accessLog:
+        - name: envoy.access_loggers.file
+          typedConfig:
+            '@type': type.googleapis.com/envoy.extensions.access_loggers.file.v3.FileAccessLog
+            logFormat:
+              textFormatSource:
+                inlineString: |
+                  [%START_TIME%] "%REQ(:METHOD)% %REQ(X-ENVOY-ORIGINAL-PATH?:PATH)% %PROTOCOL%" %RESPONSE_CODE% %RESPONSE_FLAGS% %RESPONSE_CODE_DETAILS% %CONNECTION_TERMINATION_DETAILS% "%UPSTREAM_TRANSPORT_FAILURE_REASON%" %BYTES_RECEIVED% %BYTES_SENT% %DURATION% %RESP(X-ENVOY-UPSTREAM-SERVICE-TIME)% "%REQ(X-FORWARDED-FOR)%" "%REQ(USER-AGENT)%" "%REQ(X-REQUEST-ID)%" "%REQ(:AUTHORITY)%" "%UPSTREAM_HOST%" %UPSTREAM_CLUSTER_RAW% %UPSTREAM_LOCAL_ADDRESS% %DOWNSTREAM_LOCAL_ADDRESS% %DOWNSTREAM_REMOTE_ADDRESS% %REQUESTED_SERVER_NAME% %ROUTE_NAME%
+            path: /dev/stdout
+        cluster: outbound|443||istiod.istio-system.svc.cluster.local
+        statPrefix: outbound|443||istiod.istio-system.svc.cluster.local
+    transportSocketConnectTimeout: 15s
+  listenerFiltersTimeout: 0s
+  name: 10.108.148.187_443
+  trafficDirection: OUTBOUND
+
