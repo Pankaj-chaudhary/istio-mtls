@@ -1,0 +1,31 @@
+apiVersion: networking.istio.io/v1
+kind: DestinationRule
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"networking.istio.io/v1","kind":"DestinationRule","metadata":{"annotations":{},"name":"originate-mtls-for-nginx-k8s","namespace":"default"},"spec":{"host":"my-nginx.mesh-external.svc.cluster.local","trafficPolicy":{"loadBalancer":{"simple":"ROUND_ROBIN"},"portLevelSettings":[{"port":{"number":80},"tls":{"credentialName":"client-credential","mode":"MUTUAL","sni":"kubernetes.docker.internal","subjectAltNames":["my-nginx.mesh-external.svc.cluster.local","host.docker.internal","kubernetes.docker.internal"]}}]},"workloadSelector":{"matchLabels":{"app":"curl"}}}}
+  creationTimestamp: "2024-11-20T02:44:41Z"
+  generation: 1
+  name: originate-mtls-for-nginx-k8s
+  namespace: default
+  resourceVersion: "163019"
+  uid: 368fa178-05b9-4b60-8bd4-723a51ca5348
+spec:
+  host: my-nginx.mesh-external.svc.cluster.local
+  trafficPolicy:
+    loadBalancer:
+      simple: ROUND_ROBIN
+    portLevelSettings:
+    - port:
+        number: 80
+      tls:
+        credentialName: client-credential
+        mode: MUTUAL
+        sni: kubernetes.docker.internal
+        subjectAltNames:
+        - my-nginx.mesh-external.svc.cluster.local
+        - host.docker.internal
+        - kubernetes.docker.internal
+  workloadSelector:
+    matchLabels:
+      app: curl

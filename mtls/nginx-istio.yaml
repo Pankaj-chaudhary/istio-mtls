@@ -1,0 +1,68 @@
+kubectl apply -f - <<EOF
+apiVersion: networking.istio.io/v1
+kind: ServiceEntry
+metadata:
+  name: originate-mtls-for-nginx
+spec:
+  hosts:
+  - my-nginx.mesh-external.svc.cluster.local
+  - host.docker.internal
+  - kubernetes.docker.internal
+  ports:
+  - number: 80
+    name: http-port
+    protocol: HTTP
+    targetPort: 443
+  - number: 443
+    name: https-port
+    protocol: HTTPS
+  resolution: DNS
+---
+apiVersion: networking.istio.io/v1
+kind: DestinationRule
+metadata:
+  name: originate-mtls-for-nginx
+spec:
+  workloadSelector:
+    matchLabels:
+      app: curl
+  host: kubernetes.docker.internal
+  trafficPolicy:
+    loadBalancer:
+      simple: ROUND_ROBIN
+    portLevelSettings:
+    - port:
+        number: 80
+      tls:
+        mode: MUTUAL
+        credentialName: client-credential # this must match the secret created earlier to hold client certs, and works only when DR has a workloadSelector
+        sni: kubernetes.docker.internal
+        subjectAltNames:
+        - my-nginx.mesh-external.svc.cluster.local
+        - host.docker.internal
+        - kubernetes.docker.internal
+---
+apiVersion: networking.istio.io/v1
+kind: DestinationRule
+metadata:
+  name: originate-mtls-for-nginx-k8s
+spec:
+  workloadSelector:
+    matchLabels:
+      app: curl
+  host: my-nginx.mesh-external.svc.cluster.local
+  trafficPolicy:
+    loadBalancer:
+      simple: ROUND_ROBIN
+    portLevelSettings:
+    - port:
+        number: 80
+      tls:
+        mode: MUTUAL
+        credentialName: client-credential # this must match the secret created earlier to hold client certs, and works only when DR has a workloadSelector
+        sni: kubernetes.docker.internal
+        subjectAltNames:
+        - my-nginx.mesh-external.svc.cluster.local
+        - host.docker.internal
+        - kubernetes.docker.internal
+EOF
