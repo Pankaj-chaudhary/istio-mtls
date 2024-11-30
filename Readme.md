@@ -21,7 +21,7 @@ Please advise if there is something different I need to do or help me understand
 - ✅ Application -> Sidecar -> mTLS nginx service on local
 - ✅ Application -> Egress Gateway -> mTLS nginx service on local
 - ✅ Application -> Sidecar -> mTLS public API (from personal computer)
-- ❌ Application -> Egress Gateway -> mTLS public API (from personal computer)
+- ❌ Application -> Egress Gateway -> mTLS public API (from personal computer) - Seems related to [issue](https://discuss.istio.io/t/istio-mtls-to-an-external-service/12473)
 
 ## From corporate machine: 
 - ✅ Application -> Sidecar -> mTLS nginx service on local
