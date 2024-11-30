@@ -1,6 +1,8 @@
-# Instructions to Setup manually:
+# Instructions to do mTLS via side car, and there will be no Egress gatway involved here.
 
- kubectl create secret generic client-credential --from-file=tls.key=my_client.key --from-file=tls.crt=my_client.pem --from-file=ca.crt=server_cert.pem --dry-run=client -oyaml
+### Setup manually:
+
+ kubectl create secret generic client-credential --from-file=tls.key=my_client.key --from-file=tls.crt=my_client.pem --from-file=ca.crt=server_cert.pem
 
  kubectl create role client-credential-role --resource=secret --verb=list
 
