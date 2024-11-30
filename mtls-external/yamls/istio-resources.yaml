@@ -1,0 +1,38 @@
+apiVersion: networking.istio.io/v1
+kind: ServiceEntry
+metadata:
+  name: originate-mtls-for-external
+spec:
+  hosts:
+  - mtlsapi.aspnet4you.com
+  ports:
+  - number: 80
+    name: http-port
+    protocol: HTTP
+    targetPort: 443
+  - number: 443
+    name: https-port
+    protocol: HTTPS
+  resolution: DNS
+---
+apiVersion: networking.istio.io/v1
+kind: DestinationRule
+metadata:
+  name: originate-mtls-for-external
+spec:
+  workloadSelector:
+    matchLabels:
+      app: curl
+  host: mtlsapi.aspnet4you.com
+  trafficPolicy:
+    loadBalancer:
+      simple: ROUND_ROBIN
+    portLevelSettings:
+    - port:
+        number: 80
+      tls:
+        mode: MUTUAL
+        credentialName: client-credential # this must match the secret created earlier to hold client certs, and works only when DR has a workloadSelector
+        sni: mtlsapi.aspnet4you.com
+        # subjectAltNames: # can be enabled if the certificate was generated with SAN as specified in previous section
+        # - mtlsapi.aspnet4you.com
