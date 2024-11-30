@@ -18,12 +18,15 @@ Please advise if there is something different I need to do or help me understand
 
 
 # Current Status
+### From personal computer:
 - ✅ Application -> Sidecar -> mTLS nginx service on local
 - ✅ Application -> Egress Gateway -> mTLS nginx service on local
-- ✅ Application -> Sidecar -> mTLS public API (from personal computer)
-- ❌ Application -> Egress Gateway -> mTLS public API (from personal computer) - Seems related to [issue](https://discuss.istio.io/t/istio-mtls-to-an-external-service/12473)
+- ✅ Application -> Sidecar -> mTLS public API
+- ✅ Application -> Egress Gateway -> mTLS public API.
+    - Seems related to [issue](https://discuss.istio.io/t/istio-mtls-to-an-external-service/12473).
+    - Fixed by creating a [serviceentry](https://github.com/istio/istio/issues/30808#issuecomment-777675639).
 
-## From corporate machine: 
+### From corporate machine: 
 - ✅ Application -> Sidecar -> mTLS nginx service on local
 - ⏳ Application -> Egress Gateway -> mTLS nginx service on local
 - ⏳ Application -> Sidecar -> mTLS public API (To be verified, as i need the call to go via proxy)
