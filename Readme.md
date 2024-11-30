@@ -12,3 +12,14 @@ Note: From the pod, I can successfully perform `curl --cacert --cert --key https
 Please advise if there is something different I need to do or help me understand what might be going wrong here.
 
 ![Istio](istio.png)
+
+- External API Reference: https://blogs.aspnet4you.com/2021/03/15/secure-your-business-api-with-mtls/
+- External API is https://mtlsapi.aspnet4you.com/pets
+
+
+# Current Status
+- ✅ Application -> Sidecar -> mTLS nginx service on local
+- ✅ Application -> Egress Gateway -> mTLS nginx service on local
+- ✅ Application -> Sidecar -> mTLS public API (from personal computer)
+- ❌ Application -> Egress Gateway -> mTLS public API (from personal computer)
+- ❌ Application -> Sidecar -> mTLS public API (from personal computer)
