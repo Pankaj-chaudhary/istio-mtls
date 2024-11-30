@@ -22,4 +22,10 @@ Please advise if there is something different I need to do or help me understand
 - ✅ Application -> Egress Gateway -> mTLS nginx service on local
 - ✅ Application -> Sidecar -> mTLS public API (from personal computer)
 - ❌ Application -> Egress Gateway -> mTLS public API (from personal computer)
-- ❌ Application -> Sidecar -> mTLS public API (from personal computer)
+
+## From corporate machine: 
+- ✅ Application -> Sidecar -> mTLS nginx service on local
+- ⏳ Application -> Egress Gateway -> mTLS nginx service on local
+- ⏳ Application -> Sidecar -> mTLS public API (To be verified, as i need the call to go via proxy)
+- ⏳ Application -> Sidecar -> corporate proxy -> mTLS public API 
+- ⏳ Application -> Egress Gateway -> corporate proxy -> mTLS public API 
