@@ -1,5 +1,5 @@
-## Configure mutual TLS origination for egress traffic to external api
-
+## Configure mutual TLS origination for egress traffic to external api (command line)
+```
 kubectl create secret -n istio-system generic mtlsapi-credential --from-file=tls.key=my_client.key --from-file=tls.crt=my_client.pem --from-file=ca.crt=server_cert.pem
 
 
@@ -112,20 +112,29 @@ spec:
         # subjectAltNames: # can be enabled if the certificate was generated with SAN as specified in previous section
         # - mtlsapi.aspnet4you.com
 EOF
-
-
+```
+### Setup via yamls:
+```
+ kubectl apply -f mtls-external/with-gw/.
+```
 ## Verify: 
 istioctl -n istio-system proxy-config secret deploy/istio-egressgateway | grep mtlsapi-credential
 
 curl http://mtlsapi.aspnet4you.com/pets -v
 
 ## Cleanup:
-
+```
 kubectl delete secret mtlsapi-credential -n istio-system
 kubectl delete gw istio-egressgateway
 kubectl delete virtualservice direct-mtlsapi-through-egress-gateway
 kubectl delete destinationrule -n istio-system originate-mtls-for-mtlsapi
 kubectl delete destinationrule egressgateway-for-mtlsapi
+```
+or
+
+```
+ kubectl delete -f mtls-external/with-gw/.
+```
 
 
 

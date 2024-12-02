@@ -1,5 +1,5 @@
 # Deploy a mutual TLS server
-
+```
 kubectl create namespace mesh-external
 
 kubectl create -n mesh-external secret tls nginx-server-certs --key my-nginx.mesh-external.svc.cluster.local.key --cert my-nginx.mesh-external.svc.cluster.local.crt
@@ -65,10 +65,10 @@ spec:
         secret:
           secretName: nginx-ca-certs
 EOF
-
+```
 
 ## Configure mutual TLS origination for egress traffic
-
+```
 kubectl create secret -n istio-system generic client-credential --from-file=tls.key=client.example.com.key --from-file=tls.crt=client.example.com.crt --from-file=ca.crt=example.com.crt
 
 
@@ -165,14 +165,16 @@ spec:
         # subjectAltNames: # can be enabled if the certificate was generated with SAN as specified in previous section
         # - my-nginx.mesh-external.svc.cluster.local
 EOF
-
+```
 
 ## Verify: 
+```
 istioctl -n istio-system proxy-config secret deploy/istio-egressgateway | grep client-credential
 
 curl http://my-nginx.mesh-external.svc.cluster.local -v
-
+```
 ## Cleanup:
+```
 kubectl delete secret nginx-server-certs nginx-ca-certs -n mesh-external
 kubectl delete configmap nginx-configmap -n mesh-external
 kubectl delete service my-nginx -n mesh-external
@@ -184,6 +186,5 @@ kubectl delete gw istio-egressgateway
 kubectl delete virtualservice direct-nginx-through-egress-gateway
 kubectl delete destinationrule -n istio-system originate-mtls-for-nginx
 kubectl delete destinationrule egressgateway-for-nginx
-
-
+```
 

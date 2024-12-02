@@ -9,13 +9,14 @@ However, I now need to achieve the same with a service that can only be accessed
 
 Note: From the pod, I can successfully perform `curl --cacert --cert --key https://externalapi` after setting the `HTTPS_PROXY` environment variable.
 
-Please advise if there is something different I need to do or help me understand what might be going wrong here.
-
 ![Istio](istio.png)
 
 - External API Reference: https://blogs.aspnet4you.com/2021/03/15/secure-your-business-api-with-mtls/
 - External API is https://mtlsapi.aspnet4you.com/pets
 
+# Deployment Stack
+1. Non-Istio namespace, nginx proxy running over mtls. [Ref](/mtls-nginx/)
+2. External API running over mtls [Ref](/mtls-external/)
 
 # Current Status
 ### From personal computer:
@@ -28,7 +29,7 @@ Please advise if there is something different I need to do or help me understand
 
 ### From corporate machine: 
 - ✅ Application -> Sidecar -> mTLS nginx service on local
-- ⏳ Application -> Egress Gateway -> mTLS nginx service on local
+- ✅ Application -> Egress Gateway -> mTLS nginx service on local
 - ⏳ Application -> Sidecar -> mTLS public API (To be verified, as i need the call to go via proxy)
 - ⏳ Application -> Sidecar -> corporate proxy -> mTLS public API 
 - ⏳ Application -> Egress Gateway -> corporate proxy -> mTLS public API 

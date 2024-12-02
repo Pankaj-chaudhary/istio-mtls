@@ -1,9 +1,9 @@
 # Deploy a mutual TLS server
 
-Same as [with-gw](/mtls/with-gw/Instructions.md)
+Same as [with-gw](/mtls-nginx/with-gw/Instructions.md)
 
-# Deploy side car resources
-
+## Deploy side car resources command line 
+```
 kubectl create secret generic client-credential --from-file=tls.key=client.example.com.key --from-file=tls.crt=client.example.com.crt --from-file=ca.crt=example.com.crt
 
 kubectl create role client-credential-role --resource=secret --verb=list
@@ -49,14 +49,20 @@ spec:
         # subjectAltNames: # can be enabled if the certificate was generated with SAN as specified in previous section
         # - my-nginx.mesh-external.svc.cluster.local
 EOF
-
+```
+## Install from yamls:
+You can simply do 
+```
+kubectl apply -f mtls-nginx/with-sidecar/.
+```
 ## Verify
+```
 istioctl proxy-config secret deploy/curl | grep client-credential
 
 curl http://my-nginx.mesh-external.svc.cluster.local -v
-
+```
 ## Cleanup:
-
+```
 kubectl delete secret nginx-server-certs nginx-ca-certs -n mesh-external
 kubectl delete secret client-credential
 kubectl delete rolebinding client-credential-role-binding
@@ -67,3 +73,8 @@ kubectl delete deployment my-nginx -n mesh-external
 kubectl delete namespace mesh-external
 kubectl delete serviceentry originate-mtls-for-nginx
 kubectl delete destinationrule originate-mtls-for-nginx
+```
+or
+```
+kubectl delete -f mtls-nginx/with-sidecar/.
+```
