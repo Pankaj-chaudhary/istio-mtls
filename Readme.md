@@ -33,3 +33,6 @@ Note: From the pod, I can successfully perform `curl --cacert --cert --key https
 - ⏳ Application -> Sidecar -> mTLS public API (To be verified, as i need the call to go via proxy)
 - ⏳ Application -> Sidecar -> corporate proxy -> mTLS public API 
 - ⏳ Application -> Egress Gateway -> corporate proxy -> mTLS public API 
+
+### Note:
+Got a lead to try Destination rule tunnel https://github.com/istio/istio/issues/41854
