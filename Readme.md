@@ -14,6 +14,16 @@ Note: From the pod, I can successfully perform `curl --cacert --cert --key https
 - External API Reference: https://blogs.aspnet4you.com/2021/03/15/secure-your-business-api-with-mtls/
 - External API is https://mtlsapi.aspnet4you.com/pets
 
+# Pre-reqs to replicate the use cases in Repo:
+1. Make sure you have a kubernetes cluster running (Managed from cloud, or even the one from docker).
+2. Install istio using the demo [configuration profile](https://istio.io/latest/docs/setup/additional-setup/config-profiles/). 
+3. To use the egress gateway for the tls/mtls orgination outside the mesh, make sure you have the egress gateway deployed.
+4. Make sure you have the istio injection enabled for your namespace. 
+```
+kubectl label namespace default istio-injection=enabled
+```
+5. Deploy the curl pod to test all of this in the istio-injection enabled namespace, and check there are two containers running in the pod. [Curl Deployment](/test-deployment/curl.yaml)
+
 # Deployment Stack
 1. Non-Istio namespace, nginx proxy running over mtls. [Ref](/mtls-nginx/)
 2. External API running over mtls [Ref](/mtls-external/)
