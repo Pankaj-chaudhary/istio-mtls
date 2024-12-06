@@ -1,0 +1,98 @@
+apiVersion: v1
+data:
+  ca.crt: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUMxakNDQWI0Q0NRQ3M0aG9la29tOGl6QU5CZ2txaGtpRzl3MEJBUXNGQURBdE1SVXdFd1lEVlFRS0RBeGwKZUdGdGNHeGxJRWx1WXk0eEZEQVNCZ05WQkFNTUMyVjRZVzF3YkdVdVkyOXRNQjRYRFRJME1URXlNREF5TWpjMApNbG9YRFRJMU1URXlNREF5TWpjME1sb3dMVEVWTUJNR0ExVUVDZ3dNWlhoaGJYQnNaU0JKYm1NdU1SUXdFZ1lEClZRUUREQXRsZUdGdGNHeGxMbU52YlRDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUIKQUxhQWpzbGxBWmY4aVBiR1lXNkJXajh4enQwZitoSlgrRFNOMWcyMG1GamJ2dW1Wc24zMjFNRC9wRDhtZEJVagpzeFhlTkZ0Ky9NLzgydTZFWUJHUEdoMklna2JWNjluT2tWd0dDUzFIQ1ZuOWh0V3NjMHo3YzB2bm96UDR0K0U3CnIzODBTUFBVQlREWkNJc0NjaGIzQVBwY3h6QXIrbXp0cXJHNEYyODVIUWhJN0ZNNW56WFdBWUdWVzB5Z3ErUTAKRFQ5WG9vZUZFYlhLd2JNQTVrZHkwSzVDRlZiM3NKTm9BQWswb3YrNHdqRVRJV25CTnJNaksyNVJqa3haR1djWQpVU1ppczVXWTYzUjBvbmg5Q0pkOEtYYU4zU09TL3Ruc1VxRkl3WFhSVjArY1pTdUd4KzFMN0xSMmhFdmE3dzJpCmQwU09mNUF2Z0xkWHYrcytpU2l2UkNrQ0F3RUFBVEFOQmdrcWhraUc5dzBCQVFzRkFBT0NBUUVBVjVvRll2c3UKMVhhLzJ4RHUxTWxRcUpaWCtla3Y2M1JtZTBUL2NtMHFTMEZUTSs2TktwV2xNc0FhM3M2UllMWnF1RG9HS1RCZQo2YVh3OVV0eDZ5Rk1YLy9CZjVjNS9ROHhMUjNIblhlLzkzOWpidzk3SnFJLzhqKzVKbjZYQTBzSHdjbzl1ZmY4CjVCK3dLNFZjYU15bTlRcTRmZlQvamdVWXNHL0FDb2xUYTVRMXZzWDdnRnArSW11MCtzTFg2Q0pVSitVN3M1aGMKWitOZ2k1YkhjOVcxcTFUbGNNREkzZmY2cHY5STNCUy9uenNMcElpUnQ3YXhFL0F6QlU3YXBQNDJURHNRRFFlUQoxRUQ0b0ZkRTJaMFM3SzYvaGIwZzJGNlZuMkhjNjdLUXVOckpScFJkait0djBldUplZ2NMaFRTNFRadTYxT0F6Cko1djl0anRWQWh0ME93PT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=
+  tls.crt: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUMzRENDQWNRQ0FRRXdEUVlKS29aSWh2Y05BUUVMQlFBd0xURVZNQk1HQTFVRUNnd01aWGhoYlhCc1pTQkoKYm1NdU1SUXdFZ1lEVlFRRERBdGxlR0Z0Y0d4bExtTnZiVEFlRncweU5ERXhNakF3TWpJNE1UZGFGdzB5TlRFeApNakF3TWpJNE1UZGFNRHN4R3pBWkJnTlZCQU1NRW1Oc2FXVnVkQzVsZUdGdGNHeGxMbU52YlRFY01Cb0dBMVVFCkNnd1RZMnhwWlc1MElHOXlaMkZ1YVhwaGRHbHZiakNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0MKQVFvQ2dnRUJBSy80dEE0d0gzbTRVRjkzd0p5bS96bm9MSHFzb3Vqd3cyZXFMcmhuVDBtbmVpZmVMN1J3TGlxNQpKTnFneXRhNGZTZ2FEdUxCdnBndlZ0N05QYzdvRnc1bWtaK0RMampIY3d5REhibklHNGNid0NtUVVFR3hNYXA3CitNaGNqeGk2Nm9CQTFQM0l2c21TYlRaN2xaWGpUZ1g2Zld1amRCcXVCN3RlOXo4MTVobGZzVTloYVJrakgzOEcKVFpCcGphQzB1SVlFVWFuM3hkUFNvVWdvNnd2YTRBaHdSTmd5bTdWVDhMTzV3ZjhwSVZGeHFIaEF5anJCL291dgpPMDZreUFkU1Y1UXIvajJZVnhhSVNDY3ZWUmtoY0VZcyt5L2pIbDhNK21leFdzbkxHWmRQMXF1dk9ZNDA5Y2hiCkJsQUozU3JveVcxU2hGWWtXZ004VmZucEtxVmlxK2tDQXdFQUFUQU5CZ2txaGtpRzl3MEJBUXNGQUFPQ0FRRUEKYVVUaDFIa1dOZDU1RTc0NXRuT0hJZjh4RlFTeWNKSnhhalVuajVzeS9QSmlDNFpLTy9NOUs3c0FicTl6aWZLdwp3ZysxSldvdDdlclpPYkFtZlpBQ25DbzMrMzNuVGV4TkFlUmd1RmhEQVZpS1lab1FjcEJwbUEreTcrd3BtNTFQCnYrTXFYR09RQTA1czVIK2ZiYWJ1d0d4M1BHVENVdTM3dDN6QWRFdUR1SHFZZGZXbE9ESVZEbDBVakNQTU1XYUYKK2lPdWhKaGs2bUQ5NlVGWjA0Slg1VTF0N3NrNlFFV3VPK2oxSHJYY0VOMzFiWmRtbmJFVzVEalRJb09JVm1TRApDdGtSbmQ5R0pWRVRpUU4rOGpHRXFvOUI0dlY2OFlWQ0c2aVUyeFV5RkFKdmRnTjBrUEZhYTlEdjRDcXJOV3lyCldKQXRUeVNQTmdUTlRxa0ZoWVpxVGc9PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+  tls.key: LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JSUV2QUlCQURBTkJna3Foa2lHOXcwQkFRRUZBQVNDQktZd2dnU2lBZ0VBQW9JQkFRQ3YrTFFPTUI5NXVGQmYKZDhDY3B2ODU2Q3g2cktMbzhNTm5xaTY0WjA5SnAzb24zaSswY0M0cXVTVGFvTXJXdUgwb0dnN2l3YjZZTDFiZQp6VDNPNkJjT1pwR2ZneTQ0eDNNTWd4MjV5QnVIRzhBcGtGQkJzVEdxZS9qSVhJOFl1dXFBUU5UOXlMN0prbTAyCmU1V1Y0MDRGK24xcm8zUWFyZ2U3WHZjL05lWVpYN0ZQWVdrWkl4OS9CazJRYVkyZ3RMaUdCRkdwOThYVDBxRkkKS09zTDJ1QUljRVRZTXB1MVUvQ3p1Y0gvS1NGUmNhaDRRTW82d2Y2THJ6dE9wTWdIVWxlVUsvNDltRmNXaUVnbgpMMVVaSVhCR0xQc3Y0eDVmRFBwbnNWckp5eG1YVDlhcnJ6bU9OUFhJV3daUUNkMHE2TWx0VW9SV0pGb0RQRlg1CjZTcWxZcXZwQWdNQkFBRUNnZ0VBUkNJNG5SRzI3aXNXTzVDamJFUWdxQ3drSks5NU9GWVlZcWY3QlAxREx0S0EKc3JVTnBZQ1Y3NGJXSlN5Q3ZSYWJwdzVIMnphRzlHZkg2K1p0MnhIejgyaDFVOXkzNWRZYnpxbHB0Z2dyMkdrLwpReGlVYW9zUUh1RjNWeVMzWnl6Z0pSNTFHWHBEbk1wc0xOODI4TjBjMWFYQ01BNE9vMUhrdm9Dcm5MYml5OG1qCmJ4RDhsby92RGI0T1BGZGxxK1dQUjAyWVFzRTlZbGpHVVVIaDdUeHJOT3U2MEFVMGdnOTVRTWtNejBLREc4a3AKMHhSbWtSMG9Xd2J4QWc1K0ZpNlowcXIyVzRoUGp0UkZWNVNtMFVBVUxORFhRdzFoNlRiYklBK1l2SHRlVU92VQpIcjhWb01iZW5ORjFYcjB0YitNT0Q3bGJFRWZpVEVycnFnSms4TEpTZ1FLQmdRRG13aUJMMUtjYVZzQjJMRkMwCkZIMmZ0aWU3d21qVFgwNVVFN3FpSVV2d3g2VndYVXdxak1uM1h0VkhUdENpUWsza0RBcDVVYlJ1ZmhvSU5vMjkKcG1CdXg0TjdUWUY4ZUJYMDBRNjNFRWhJY095NFR5emRrUXlRTW82VnlPTk85ZTJIVEc3V1Bkc2U4NnlSWTc3aApJNWJjdUY0SmZsK0RuYTJ5Y0szN3JhY25FUUtCZ1FERE9HVHhVMmtSUWNRS2I0Zi9IVzNnYXUwQkZVRkllYTQ3CnhYRjl2VVJONGFMNDdFR2JwaTcxL1ZtYzRGQm15R1V0RWUwb0ZoOHhaamdIeGZ1OU9VeTFGUXZ2WUQrVXZrN3UKeUw2dXZnMUtJQjV1NHJrZytBc2dLRllLem1hSEJmZHpUK3k5TDJWMUdFdUdmRU5HWkR0UkFybHUyZURCMEdUYwpzR2Vub3lxbldRS0JnSGFrTW5TcWRldk4xSkF0Z3FURHNEOFFLV2VZc2NxVFFyTnBuVmhFWkVYOGI2dlEzQnM0ClhaS29tR0ZjUFZwZldxcTRJaDUwQ3ArUWlCUFc4Sk1rV29vNlcvaG1SZi9Yd2Zvb0RqZkMwRmNtY0I3bTNqdGcKbXlQOFNtRHFjeXdpdHlnTC9TUjdreEJiMmtxNkRPYTJKSmVBMXlCc2IvRThmWlN6NkUvdzNYTHhBb0dBR0Z4SApMRjRPTkZzU2pZTFJZNkpXZmJTYUVwS0diUGJTS1I5QVJFS0Q3WHdFakM5ZkdIOHFTUVB1Vk1jaEFWSnNYYTFvCi9LR1dEdUlFaCtQS3dCZ1FYR0JkOXViNXlDUGZVYWkzTXJNQWtZbGtnczNEOER0RG1DV3dadlRPa25iS0pCZUwKSVNoeTdxT3plUHEwb21vTGhOWmtNVkw2MnZTWVFYbTUxWTlrMlRFQ2dZQnVTTjYvejkzbE1RUGd4dS9USnowMwpIVE9IbUp0UUt5NEp4WDNhRGhEZjlzb1FrUXZ5UXJXalhGNDlpMGMrcVp1ZWE3OHZUWFdYazhOZ3JmODVOZHpJCkJ1cTdaaEdBbEE0TWlBYkYvK3JuSkQ3K3EyVGQxWHZnYTVIU1BmbEtWOXZpK29qVGNrSmYzeElzUU96THRkRlUKcDJpTXhVZEtQSUR2MmNUSFdmN1pqUT09Ci0tLS0tRU5EIFBSSVZBVEUgS0VZLS0tLS0K
+kind: Secret
+metadata:
+  creationTimestamp: null
+  name: client-credential
+  namespace: istio-system
+---
+apiVersion: networking.istio.io/v1
+kind: Gateway
+metadata:
+  name: istio-egressgateway
+spec:
+  selector:
+    istio: egressgateway
+  servers:
+  - port:
+      number: 443
+      name: https
+      protocol: HTTPS
+    hosts:
+    - my-nginx.mesh-external.svc.cluster.local
+    tls:
+      mode: ISTIO_MUTUAL
+---
+apiVersion: networking.istio.io/v1
+kind: DestinationRule
+metadata:
+  name: egressgateway-for-nginx
+spec:
+  host: istio-egressgateway.istio-system.svc.cluster.local
+  subsets:
+  - name: nginx
+    trafficPolicy:
+      loadBalancer:
+        simple: ROUND_ROBIN
+      portLevelSettings:
+      - port:
+          number: 443
+        tls:
+          mode: ISTIO_MUTUAL
+          sni: my-nginx.mesh-external.svc.cluster.local
+---
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: direct-nginx-through-egress-gateway
+spec:
+  hosts:
+  - my-nginx.mesh-external.svc.cluster.local
+  gateways:
+  - istio-egressgateway
+  - mesh
+  http:
+  - match:
+    - gateways:
+      - mesh
+      port: 80
+    route:
+    - destination:
+        host: istio-egressgateway.istio-system.svc.cluster.local
+        subset: nginx
+        port:
+          number: 443
+      weight: 100
+  - match:
+    - gateways:
+      - istio-egressgateway
+      port: 443
+    route:
+    - destination:
+        host: my-nginx.mesh-external.svc.cluster.local
+        port:
+          number: 443
+      weight: 100
+---
+apiVersion: networking.istio.io/v1
+kind: DestinationRule
+metadata:
+  name: originate-mtls-for-nginx
+  namespace: istio-system
+spec:
+  host: my-nginx.mesh-external.svc.cluster.local
+  trafficPolicy:
+    loadBalancer:
+      simple: ROUND_ROBIN
+    portLevelSettings:
+    - port:
+        number: 443
+      tls:
+        mode: MUTUAL
+        credentialName: client-credential # this must match the secret created earlier to hold client certs
+        sni: my-nginx.mesh-external.svc.cluster.local
+        # subjectAltNames: # can be enabled if the certificate was generated with SAN as specified in previous section
+        # - my-nginx.mesh-external.svc.cluster.local

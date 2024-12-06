@@ -1,0 +1,123 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: external
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tinyproxy
+  namespace: external
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tinyproxy
+  template:
+    metadata:
+      labels:
+        app: tinyproxy
+    spec:
+      containers:
+      - image: vimagick/tinyproxy
+        imagePullPolicy: IfNotPresent
+        name: tinyproxy
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: external-forward-proxy
+  namespace: external
+spec:
+  type: ClusterIP
+  ports:
+  - protocol: TCP
+    port: 8888
+    name: http
+  selector:
+      app: tinyproxy
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: external-forward-proxy.external.svc.cluster.local
+spec:
+  hosts:
+    - external-forward-proxy.external.svc.cluster.local
+  location: MESH_EXTERNAL
+  ports:
+    - number: 8888
+      name: http
+      protocol: HTTP
+  resolution: DNS
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: example-com
+spec:
+  hosts:
+    - www.example.com
+  location: MESH_EXTERNAL
+  ports:
+    - number: 80
+      name: http
+      protocol: HTTP
+  resolution: DNS
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: example-com-via-egress-gateway
+spec:
+  hosts:
+    - www.example.com
+  gateways:
+    - istio-egressgateway
+    - mesh
+  http:
+    - match:
+        - gateways:
+            - mesh
+          port: 80
+      route:
+        - destination:
+            host: istio-egressgateway.istio-system.svc.cluster.local
+            port:
+              number: 80
+    - match:
+        - gateways:
+            - istio-egressgateway
+          port: 80
+      route:
+        - destination:
+            host: external-forward-proxy.external.svc.cluster.local
+            port:
+              number: 8888
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: tunnel-tls
+spec:
+  host: external-forward-proxy.external.svc.cluster.local
+  trafficPolicy:
+    tunnel:
+      protocol: CONNECT
+      targetPort: 8888
+      targetHost: external-forward-proxy.external.svc.cluster.local
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: istio-egressgateway
+spec:
+  selector:
+    istio: egressgateway
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - www.example.com
