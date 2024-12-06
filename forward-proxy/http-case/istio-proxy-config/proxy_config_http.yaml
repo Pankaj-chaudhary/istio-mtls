@@ -1,0 +1,84 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: host.docker.internal
+spec:
+  hosts:
+    - host.docker.internal
+  location: MESH_EXTERNAL
+  ports:
+    - number: 8888
+      name: http
+      protocol: HTTP
+  resolution: DNS
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: google-com
+spec:
+  hosts:
+    - www.google.com
+  location: MESH_EXTERNAL
+  ports:
+    - number: 80
+      name: http
+      protocol: HTTP
+  resolution: DNS
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: google-com-via-egress-gateway
+spec:
+  hosts:
+    - www.google.com
+  gateways:
+    - istio-egressgateway
+    - mesh
+  http:
+    - match:
+        - gateways:
+            - mesh
+          port: 80
+      route:
+        - destination:
+            host: istio-egressgateway.istio-system.svc.cluster.local
+            port:
+              number: 80
+    - match:
+        - gateways:
+            - istio-egressgateway
+          port: 80
+      route:
+        - destination:
+            host: host.docker.internal
+            port:
+              number: 8888
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: tunnel-tls
+spec:
+  host: host.docker.internal
+  trafficPolicy:
+    tunnel:
+      protocol: CONNECT
+      targetPort: 8888
+      targetHost: host.docker.internal
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: istio-egressgateway
+spec:
+  selector:
+    istio: egressgateway
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - www.google.com

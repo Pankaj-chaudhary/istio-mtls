@@ -1,0 +1,7 @@
+services:
+  nginx-forward-proxy:
+    image: reiz/nginx_proxy
+    ports:
+      - 8888:8888
+    volumes:
+      - ./nginx-deny.conf:/usr/local/nginx/conf/nginx.conf:ro
