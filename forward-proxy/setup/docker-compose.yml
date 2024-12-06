@@ -1,0 +1,13 @@
+services:
+  nginx-forward-proxy:
+    image: dominikbechstein/nginx-forward-proxy
+    ports:
+      - 8080:8080
+    volumes:
+      - ./nginx-forward-proxy.conf:/usr/local/nginx/conf/nginx.conf:ro
+  nginx-forward-proxy-reiz:
+    image: reiz/nginx_proxy
+    ports:
+      - 8888:8888
+    volumes:
+      - ./nginx-deny.conf:/usr/local/nginx/conf/nginx.conf:ro
