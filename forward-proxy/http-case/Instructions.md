@@ -5,17 +5,17 @@ This folder setup a forward proxy, that denies the traffic to http://www.google.
 ### Instructions to setup:
 1. Deploy the nginx forward proxy with deny rule.
 ```
-docker compose -f .\setup\docker-compose.yml up -d
+docker compose -f setup/docker-compose.yml up -d
 ```
 2. Deploys the istio configurations to redirect the traffic via proxy.
 ```
-kubectl apply -f .\istio-proxy-config\proxy_config_http.yaml
+kubectl apply -f istio-proxy-config/proxy_config_http.yaml
 ```
 
 ### Verify:
 Exec inside the pod and do a curl on http://www.google.com.
 
-Expected is 404 erro: 
+Expected is 404 error: 
 ```
  curl http://www.google.com/ -v
 * Host www.google.com:80 was resolved.
@@ -50,6 +50,6 @@ Expected is 404 erro:
 
 ### Cleanup:
 ```
-docker compose -f .\setup\docker-compose.yml down
-kubectl delete -f .\istio-proxy-config\proxy_config_http.yaml
+docker compose -f setup/docker-compose.yml down
+kubectl delete -f istio-proxy-config/proxy_config_http.yaml
 ```
