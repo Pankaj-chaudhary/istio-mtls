@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  nginx-mtls:
+    image: nginx:latest
+    ports:
+      - "443:443"
+    volumes:
+      - ./index.html:/usr/share/nginx/html/index.html:ro
+      - ./nginx-mtls.conf:/etc/nginx/nginx.conf:ro
+      - ../mtls-nginx/my-nginx.mesh-external.svc.cluster.local.crt:/etc/nginx-server-certs/tls.crt:ro
+      - ../mtls-nginx/my-nginx.mesh-external.svc.cluster.local.key:/etc/nginx-server-certs/tls.key:ro
+      - ../mtls-nginx/example.com.crt:/etc/nginx-ca-certs/example.com.crt:ro
+  nginx-simple:
+    image: nginx:latest
+    ports:
+      - "8081:80"
+    volumes:
+      - ./index.html:/usr/share/nginx/html/index.html:ro
+  nginx-forward-proxy:
+    image: dominikbechstein/nginx-forward-proxy
+    ports:
+      - 8080:8080
+    volumes:
+      - ./nginx-forward-proxy.conf:/usr/local/nginx/conf/nginx.conf:ro
