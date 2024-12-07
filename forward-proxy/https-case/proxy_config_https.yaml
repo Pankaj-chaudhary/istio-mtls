@@ -1,0 +1,87 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: istio-egressgateway
+spec:
+  selector:
+    istio: egressgateway
+  servers:
+  - port:
+      number: 443
+      name: tls
+      protocol: TLS
+    hosts:
+    - www.google.com
+    tls:
+      mode: PASSTHROUGH
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: force-tunneling-mesh
+spec:
+  hosts:
+  - www.google.com
+  gateways:
+  - mesh
+  http:
+  - match:
+    - headers:
+        X-PROXY-THIS:
+          exact: "false"
+    route:
+    - destination:
+        host: istio-egressgateway.istio-system.svc.cluster.local
+        subset: originate-tls-to-google-com
+        port:
+          number: 443
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: originate-tls-to-google-com
+spec:
+  host: istio-egressgateway.istio-system.svc.cluster.local
+  subsets:
+  - name: originate-tls-to-google-com
+    trafficPolicy:
+      tls:
+        mode: SIMPLE
+        sni: www.google.com
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: force-tunneling-mesh
+spec:
+  hosts:
+  - www.google.com
+  gateways:
+  - istio-egressgateway
+  tls:
+  - match:
+    - sniHosts:
+      - www.google.com
+    route:
+    - destination:
+        host: host.docker.internal
+        subset: tunnel-traffic-to-google-com
+        port:
+          number: 8888
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: originate-tls-to-connect-proxy-and-tunnel-traffic-to-google-com
+spec:
+  host: host.docker.internal
+  trafficPolicy:
+    tls:
+      mode: SIMPLE
+      sni: host.docker.internal
+  subsets:
+  - name: tunnel-traffic-to-google-com
+    trafficPolicy:
+      tunnel:
+        targetHost: www.google.com
+        targetPort: 443

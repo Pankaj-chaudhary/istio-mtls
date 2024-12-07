@@ -52,5 +52,5 @@ curl http://www.google.com/ -v
 ### Cleanup:
 ```
 docker compose -f setup/docker-compose.yml down
-kubectl delete -f istio-proxy-config/proxy_config_http.yaml
+kubectl delete -f http-case/proxy_config_http.yaml
 ```
