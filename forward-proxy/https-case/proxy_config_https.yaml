@@ -1,87 +1,102 @@
 apiVersion: networking.istio.io/v1alpha3
-kind: Gateway
-metadata:
-  name: istio-egressgateway
-spec:
-  selector:
-    istio: egressgateway
-  servers:
-  - port:
-      number: 443
-      name: tls
-      protocol: TLS
-    hosts:
-    - www.google.com
-    tls:
-      mode: PASSTHROUGH
----
-apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
-  name: force-tunneling-mesh
+  name: direct-cnn-through-egress-gateway
+  namespace: default
 spec:
   hosts:
-  - www.google.com
+  - edition.cnn.com
   gateways:
   - mesh
   http:
-  - match:
-    - headers:
-        X-PROXY-THIS:
-          exact: "false"
-    route:
-    - destination:
-        host: istio-egressgateway.istio-system.svc.cluster.local
-        subset: originate-tls-to-google-com
-        port:
-          number: 443
+    - match:
+        - headers:
+            x-zeta-inhouse-required:
+              exact: "true"
+      rewrite:
+        uri: "/"
+        authority: httpbin.org
+      route:
+        - destination:
+            host: httpbin.org
+            port: 
+              number: 80
+    - match:
+        - headers:
+            x-zeta-inhouse-required:
+              exact: "false"
+      route:
+        - destination:
+            host: istio-egressgateway.istio-system.svc.cluster.local
+            subset: cnn
+            port:
+              number: 443
+    - name: default
+      route:
+      - destination:
+            host: istio-egressgateway.istio-system.svc.cluster.local
+            subset: cnn
+            port:
+              number: 443
+  exportTo:
+    - "*"
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
-  name: originate-tls-to-google-com
+  name: egressgateway-for-cnn
+  namespace: default
 spec:
   host: istio-egressgateway.istio-system.svc.cluster.local
   subsets:
-  - name: originate-tls-to-google-com
+  - name: cnn
     trafficPolicy:
-      tls:
-        mode: SIMPLE
-        sni: www.google.com
+      portLevelSettings:
+      - port:
+          number: 443
+        tls:
+          mode: SIMPLE
+          sni: edition.cnn.com
+  exportTo:
+    - "*"
 ---
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
   name: force-tunneling-mesh
+  namespace: default
 spec:
   hosts:
-  - www.google.com
+  - edition.cnn.com
   gateways:
   - istio-egressgateway
   tls:
   - match:
     - sniHosts:
-      - www.google.com
+        - edition.cnn.com
     route:
     - destination:
         host: host.docker.internal
-        subset: tunnel-traffic-to-google-com
+        subset: tunnel-traffic-to-cnn
         port:
           number: 8888
+  exportTo:
+    - "*"
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
   name: originate-tls-to-connect-proxy-and-tunnel-traffic-to-google-com
+  namespace: default
 spec:
   host: host.docker.internal
-  trafficPolicy:
-    tls:
-      mode: SIMPLE
-      sni: host.docker.internal
   subsets:
-  - name: tunnel-traffic-to-google-com
+  - name: tunnel-traffic-to-cnn
     trafficPolicy:
       tunnel:
-        targetHost: www.google.com
+        targetHost: edition.cnn.com
         targetPort: 443
+        protocol: CONNECT
+  exportTo:
+    - "*"
+---

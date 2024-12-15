@@ -18,7 +18,7 @@ metadata:
   name: google-com
 spec:
   hosts:
-    - www.google.com
+    - abc.wrongurl
   location: MESH_EXTERNAL
   ports:
     - number: 80
@@ -32,7 +32,7 @@ metadata:
   name: google-com-via-egress-gateway
 spec:
   hosts:
-    - www.google.com
+    - abc.wrongurl
   gateways:
     - istio-egressgateway
     - mesh
@@ -81,4 +81,4 @@ spec:
         name: http
         protocol: HTTP
       hosts:
-        - www.google.com
+        - abc.wrongurl
