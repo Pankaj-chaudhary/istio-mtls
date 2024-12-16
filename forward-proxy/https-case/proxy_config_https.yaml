@@ -22,6 +22,28 @@ spec:
   gateways:
   - mesh
   http:
+    - match:
+        - headers:
+            x-zeta-inhouse-required:
+              exact: "true"
+      rewrite:
+        uri: "/"
+        authority: httpbin.org
+      route:
+        - destination:
+            host: httpbin.org
+            port: 
+              number: 80
+    - match:
+        - headers:
+            x-zeta-inhouse-required:
+              exact: "false"
+      route:
+        - destination:
+            host: istio-egressgateway.istio-system.svc.cluster.local
+            subset: cnn
+            port:
+              number: 443
     - name: default
       route:
       - destination:
